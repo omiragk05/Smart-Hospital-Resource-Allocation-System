@@ -40,8 +40,10 @@ double patientGrossTotal[MAX_PATIENTS] = {0.0};
 double patientDiscount[MAX_PATIENTS] = {0.0};
 double patientFinalPayable[MAX_PATIENTS] = {0.0};
 
-int numOfPatientsInQueue[NUM_OF_SPECIALTIES] = {0};
+int dailyPatientRegisteredCount[NUM_OF_SPECIALTIES] = {0};
 
+int numOfPatientsInQueue[NUM_OF_SPECIALTIES] = {0};
+int numberOfPatients = 0;
 
 void displayMainMenu()
 {
@@ -56,4 +58,44 @@ void displayMainMenu()
     printf("====================================================\n");
 }
 
+void registerPatient()
+{
+    int admissionChoice;
+    printf("===============================\n");
+    printf("      PATIENT REGISTRATION\n");
+    printf("===============================\n");
 
+    printf("Enter patient name: ");
+    scanf(" %[^\n]", patientName[numberOfPatients]);
+
+    printf("Enter patient age: ");
+    scanf("%d", &patientAge[numberOfPatients]);
+
+    printf("Enter urgency level (1 = Normal, 2 = Urgent, 3 = Critical): ");
+    scanf("%d", &patientUrgencyLevel[numberOfPatients]);
+
+    printf("Enter specialty ID (1-4): ");
+    scanf("%d", &patientSpecialtyID[numberOfPatients]);
+
+    printf("Is admitted to ward? (1 = Yes, 0 = No): ");
+    scanf("%d", &admissionChoice);
+
+    if(admissionChoice == 1)
+    {
+        printf("Enter ward ID (1-4): ");
+        scanf("%d", &patientWardID[numberOfPatients]);
+
+        printf("Enter days admitted: ");
+        scanf("%d", &patientDaysAdmitted[numberOfPatients]);
+    }
+    else
+    {
+        patientWardID[numberOfPatients] = 0;
+        patientBedNumber[numberOfPatients] = 0;
+        patientDaysAdmitted[numberOfPatients] = 0;
+    }
+
+    numberOfPatients++;
+
+    printf("\nPatient registation successful.\n");
+}

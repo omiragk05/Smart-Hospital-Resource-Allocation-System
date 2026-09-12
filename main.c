@@ -1,6 +1,7 @@
 #include <stdio.h>
 
 void displayMainMenu();
+void registerPatient();
 
 int main()
 {
@@ -13,7 +14,7 @@ int main()
         switch(choice)
         {
             case 1:
-
+                registerPatient();
                 break;
             case 2:
                 break;
