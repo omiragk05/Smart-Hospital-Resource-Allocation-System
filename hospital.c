@@ -26,18 +26,34 @@ int bedAvailabilityStatus[NUM_OF_WARDS][20] = {0};
 
 char patientName[MAX_PATIENTS][50];
 int patientAge[MAX_PATIENTS] = {0};
-int patientUrgencyLevel[MAX_PATIENTS] = {0};
 int patientSpecialtyID[MAX_PATIENTS] = {0};
 int patientWardID[MAX_PATIENTS] = {0};
 int patientBedNumber[MAX_PATIENTS] = {0};
+int patientUrgencyLevel[MAX_PATIENTS] = {0};
 int patientDaysAdmitted[MAX_PATIENTS] = {0};
 
 double patientWaitingTime[MAX_PATIENTS] = {0.0};
-double patientBaseFee[MAX_PATIENTS] = {0.0};
-double patientSurcharge[MAX_PATIENTS] = {0.0};
+double patientBaseConsultationFee[MAX_PATIENTS] = {0.0};
+double patientEmergencySurcharge[MAX_PATIENTS] = {0.0};
 double patientWardCost[MAX_PATIENTS] = {0.0};
 double patientGrossTotal[MAX_PATIENTS] = {0.0};
 double patientDiscount[MAX_PATIENTS] = {0.0};
 double patientFinalPayable[MAX_PATIENTS] = {0.0};
 
 int numOfPatientsInQueue[NUM_OF_SPECIALTIES] = {0};
+
+
+void displayMainMenu()
+{
+    printf("\n====================================================\n");
+    printf("     SMART HOSPITAL AND RESOURCE ALLOCATION SYSTEM\n");
+    printf("====================================================\n");
+    printf("1. Register Patient\n");
+    printf("2. Display Registered Patients\n");
+    printf("3. Generate Reports\n");
+    printf("4. Save Data\n");
+    printf("5. Exit\n");
+    printf("====================================================\n");
+}
+
+
