@@ -49,14 +49,14 @@ int numberOfPatients = 0;
 
 int chooseBedFromWard(int wardIDChoice);
 
-double calculateWaitingTime(int specialtyIDChoice);
+double calculateWaitingTime(int specialtyIDChoice, int urgencyLevel);
 double calculateBaseConsultationFee(int specialtyIDChoice);
 double calculateEmergencySurcharge(int urgencyLevel,double baseConsultationFee);
 double calculateWardCost(int wardIDChoice,int daysAdmitted);
 double calculateGrossTotal(double baseConsultationFee, double emergencySurcharge,double wardCost);
 double calculateDiscount(int age,double grossTotal);
 double calculateFinalPayable(double grossTotal,double discount);
-
+void displayPatientBill(int patientIndex);
 
 
 void displayMainMenu()
@@ -77,6 +77,7 @@ void registerPatient()
     int admissionChoice;
     int specialtyIDChoice;
     int wardIDChoice;
+    int urgencyLevel;
     printf("===============================\n");
     printf("      PATIENT REGISTRATION\n");
     printf("===============================\n");
@@ -100,7 +101,7 @@ void registerPatient()
     }
 
     printf("Enter urgency level (1 = Normal, 2 = Urgent, 3 = Critical): ");
-    scanf("%d", &patientUrgencyLevel[numberOfPatients]);
+    scanf("%d", &urgencyLevel);
 
 
 
@@ -138,8 +139,8 @@ void registerPatient()
     }
 
     patientSpecialtyID[numberOfPatients] = specialtyIDChoice-1;
-    patientWaitingTime[numberOfPatients] = calculateWaitingTime(specialtyIDChoice);
-    patientWaitingTime[numberOfPatients] =calculateWaitingTime(specialtyIDChoice);
+    patientUrgencyLevel[numberOfPatients] = urgencyLevel;
+    patientWaitingTime[numberOfPatients] = calculateWaitingTime(specialtyIDChoice,urgencyLevel);
     patientBaseConsultationFee[numberOfPatients] =calculateBaseConsultationFee(specialtyIDChoice);
 
     patientEmergencySurcharge[numberOfPatients] =calculateEmergencySurcharge(patientUrgencyLevel[numberOfPatients],
@@ -157,12 +158,11 @@ void registerPatient()
     patientFinalPayable[numberOfPatients] =calculateFinalPayable(patientGrossTotal[numberOfPatients],
                                                     patientDiscount[numberOfPatients]);
 
+    printf("\nPatient registation successful.\n");
+    displayPatientBill(numberOfPatients);
     numOfPatientsInQueue[specialtyIDChoice - 1]++;
     dailyPatientRegisteredCount[specialtyIDChoice - 1]++;
     numberOfPatients++;
-
-    printf("\nPatient registation successful.\n");
-
 }
 
 
@@ -187,9 +187,20 @@ double calculateBaseConsultationFee(int specialtyIDChoice)
 }
 
 
-double calculateWaitingTime(int specialtyIDChoice)
+double calculateWaitingTime(int specialtyIDChoice, int urgencyLevel)
 {
-    return numOfPatientsInQueue[specialtyIDChoice-1]*consultationTime[specialtyIDChoice-1];
+    int patientsAheadCount = 0;
+    for (int i= 0;i<numberOfPatients;i++)
+    {
+        if (patientSpecialtyID[i] == specialtyIDChoice-1)
+        {
+            if (patientUrgencyLevel[i] >=urgencyLevel)
+            {
+                patientsAheadCount++;
+            }
+        }
+    }
+    return patientsAheadCount * consultationTime[specialtyIDChoice-1];
 }
 
 
@@ -241,3 +252,36 @@ double calculateFinalPayable(double grossTotal, double discount)
 {
     return grossTotal - discount;
 }
+
+void displayPatientBill(int patientIndex)
+{
+    printf("\n===============================================\n");
+    printf("             PATIENT BILL");
+    printf("\n===============================================\n");
+    printf("Patient Name        : %s\n", patientName[patientIndex]);
+    printf("Age                 : %d\n", patientAge[patientIndex]);
+    printf("Specialty           : %s\n", specialtyName[patientSpecialtyID[patientIndex]]);
+    printf("Urgency Level       : %d\n", patientUrgencyLevel[patientIndex]);
+    printf("Waiting Time        : %.2f minutes\n",patientWaitingTime[patientIndex]);
+
+    if(patientWardID[patientIndex] == 0)
+    {
+        printf("Assigned Ward          : Not Admitted\n");
+    }
+    else
+    {
+        printf("Ward                : %s\n",wardName[patientWardID[patientIndex] - 1]);
+        printf("Bed Number          : %d\n",patientBedNumber[patientIndex] + 1);
+        printf("Days Admitted       : %d\n",patientDaysAdmitted[patientIndex]);
+    }
+    printf("-----------------------------------------------\n");
+    printf("Base Consultation   : Rs. %.2f\n",patientBaseConsultationFee[patientIndex]);
+    printf("Emergency Surcharge : Rs. %.2f\n",patientEmergencySurcharge[patientIndex]);
+    printf("Ward Cost           : Rs. %.2f\n",patientWardCost[patientIndex]);
+    printf("Gross Total         : Rs. %.2f\n",patientGrossTotal[patientIndex]);
+    printf("Discount            : Rs. %.2f\n",patientDiscount[patientIndex]);
+    printf("===============================================\n");
+    printf("Final Payable       : Rs. %.2f\n",patientFinalPayable[patientIndex]);
+    printf("===============================================\n");
+}
+
