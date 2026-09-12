@@ -256,13 +256,12 @@ double calculateFinalPayable(double grossTotal, double discount)
 void displayPatientBill(int patientIndex)
 {
     printf("\n===============================================\n");
-    printf("             PATIENT BILL");
-    printf("\n===============================================\n");
+    printf("Patient ID          : PAT-%04d\n", patientIndex+1);
     printf("Patient Name        : %s\n", patientName[patientIndex]);
     printf("Age                 : %d\n", patientAge[patientIndex]);
     printf("Specialty           : %s\n", specialtyName[patientSpecialtyID[patientIndex]]);
     printf("Urgency Level       : %d\n", patientUrgencyLevel[patientIndex]);
-    printf("Waiting Time        : %.2f minutes\n",patientWaitingTime[patientIndex]);
+    printf("Waiting Time        : %.0f minutes\n",patientWaitingTime[patientIndex]);
 
     if(patientWardID[patientIndex] == 0)
     {

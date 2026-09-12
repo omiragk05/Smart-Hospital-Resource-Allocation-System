@@ -18,19 +18,23 @@ int main()
                 registerPatient();
                 break;
             case 2:
+                //display function, Bed Occupancy        by sorting , by search
                 break;
             case 3:
+                //Reports function
                 break;
             case 4:
+                //Save data
                 break;
             case 5:
+                printf("\nExited the program");
                 break;
             default:
                 break;
         }
     }while(choice!=5);
 
-    printf("\nExited the program");
+
 
     return 0;
 }
