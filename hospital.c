@@ -49,7 +49,13 @@ int numberOfPatients = 0;
 
 int chooseBedFromWard(int wardIDChoice);
 
-
+double calculateWaitingTime(int specialtyIDChoice);
+double calculateBaseConsultationFee(int specialtyIDChoice);
+double calculateEmergencySurcharge(int urgencyLevel,double baseConsultationFee);
+double calculateWardCost(int wardIDChoice,int daysAdmitted);
+double calculateGrossTotal(double baseConsultationFee, double emergencySurcharge,double wardCost);
+double calculateDiscount(int age,double grossTotal);
+double calculateFinalPayable(double grossTotal,double discount);
 
 
 
@@ -117,6 +123,7 @@ void registerPatient()
         }else
         {
             patientWardID[numberOfPatients] = wardIDChoice;
+            bedAvailabilityStatus[wardIDChoice-1][bed] =1;
             patientBedNumber[numberOfPatients] = bed;
         }
 
@@ -129,9 +136,30 @@ void registerPatient()
         patientBedNumber[numberOfPatients] = 0;
         patientDaysAdmitted[numberOfPatients] = 0;
     }
+
     patientSpecialtyID[numberOfPatients] = specialtyIDChoice-1;
+    patientWaitingTime[numberOfPatients] = calculateWaitingTime(specialtyIDChoice);
+    patientWaitingTime[numberOfPatients] =calculateWaitingTime(specialtyIDChoice);
+    patientBaseConsultationFee[numberOfPatients] =calculateBaseConsultationFee(specialtyIDChoice);
+
+    patientEmergencySurcharge[numberOfPatients] =calculateEmergencySurcharge(patientUrgencyLevel[numberOfPatients],
+                                                patientBaseConsultationFee[numberOfPatients]);
+
+    patientWardCost[numberOfPatients] =calculateWardCost(patientWardID[numberOfPatients],
+                                        patientDaysAdmitted[numberOfPatients]);
+
+    patientGrossTotal[numberOfPatients] =calculateGrossTotal(patientBaseConsultationFee[numberOfPatients],
+                                    patientEmergencySurcharge[numberOfPatients],patientWardCost[numberOfPatients]);
+
+    patientDiscount[numberOfPatients] =calculateDiscount(patientAge[numberOfPatients],
+                                                         patientGrossTotal[numberOfPatients]);
+
+    patientFinalPayable[numberOfPatients] =calculateFinalPayable(patientGrossTotal[numberOfPatients],
+                                                    patientDiscount[numberOfPatients]);
+
+    numOfPatientsInQueue[specialtyIDChoice - 1]++;
+    dailyPatientRegisteredCount[specialtyIDChoice - 1]++;
     numberOfPatients++;
-    dailyPatientRegisteredCount[specialtyIDChoice-1]++;
 
     printf("\nPatient registation successful.\n");
 
@@ -150,4 +178,66 @@ int chooseBedFromWard(int wardIDChoice)
 
     return -1;
 
+}
+
+
+double calculateBaseConsultationFee(int specialtyIDChoice)
+{
+    return baseFee[specialtyIDChoice-1];
+}
+
+
+double calculateWaitingTime(int specialtyIDChoice)
+{
+    return numOfPatientsInQueue[specialtyIDChoice-1]*consultationTime[specialtyIDChoice-1];
+}
+
+
+double calculateEmergencySurcharge(int urgencyLevel, double baseConsultationFee)
+{
+    if(urgencyLevel == 1)
+    {
+        return 0.00;
+    }
+    else if(urgencyLevel == 2)
+    {
+        return baseConsultationFee * 0.20;
+    }
+    else
+    {
+        return baseConsultationFee * 0.50;
+    }
+}
+
+
+double calculateWardCost(int wardIDChoice, int daysAdmitted)
+{
+    if(wardIDChoice == 0)
+    {
+        return 0.00;
+    }
+
+    return dailyBedRate[wardIDChoice - 1] * daysAdmitted;
+}
+
+
+double calculateGrossTotal(double baseConsultationFee,double emergencySurcharge,double wardCost)
+{
+    return baseConsultationFee + emergencySurcharge + wardCost;
+}
+
+
+double calculateDiscount(int age, double grossTotal)
+{
+    if(age < 5 || age > 65)
+    {
+        return grossTotal * 0.15;
+    }
+    return 0.00;
+}
+
+
+double calculateFinalPayable(double grossTotal, double discount)
+{
+    return grossTotal - discount;
 }
