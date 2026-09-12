@@ -5,10 +5,11 @@ void registerPatient();
 
 int main()
 {
-    displayMainMenu();
+
     int choice;
     do
     {
+        displayMainMenu();
         printf("Input an option : ");
         scanf("%d",&choice);
         switch(choice)

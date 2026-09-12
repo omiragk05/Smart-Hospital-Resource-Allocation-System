@@ -45,6 +45,14 @@ int dailyPatientRegisteredCount[NUM_OF_SPECIALTIES] = {0};
 int numOfPatientsInQueue[NUM_OF_SPECIALTIES] = {0};
 int numberOfPatients = 0;
 
+//function prototype
+
+int chooseBedFromWard(int wardIDChoice);
+
+
+
+
+
 void displayMainMenu()
 {
     printf("\n====================================================\n");
@@ -61,6 +69,8 @@ void displayMainMenu()
 void registerPatient()
 {
     int admissionChoice;
+    int specialtyIDChoice;
+    int wardIDChoice;
     printf("===============================\n");
     printf("      PATIENT REGISTRATION\n");
     printf("===============================\n");
@@ -71,19 +81,44 @@ void registerPatient()
     printf("Enter patient age: ");
     scanf("%d", &patientAge[numberOfPatients]);
 
+    printf("Enter specialty ID (1-4): ");
+    scanf("%d", &specialtyIDChoice);
+
+    if(dailyPatientRegisteredCount[specialtyIDChoice-1]>=dailyPatientCap[specialtyIDChoice-1])
+    {
+        printf("Sorry. Daily Patient Capacity for %s is already Reached.\n",specialtyName[specialtyIDChoice-1]);
+        printf("Enter any key to go to main menu..");
+        getchar();
+        getchar();
+        return;
+    }
+
     printf("Enter urgency level (1 = Normal, 2 = Urgent, 3 = Critical): ");
     scanf("%d", &patientUrgencyLevel[numberOfPatients]);
 
-    printf("Enter specialty ID (1-4): ");
-    scanf("%d", &patientSpecialtyID[numberOfPatients]);
 
-    printf("Is admitted to ward? (1 = Yes, 0 = No): ");
+
+    printf("Admitted to ward? (1 = Yes, 0 = No): ");
     scanf("%d", &admissionChoice);
 
     if(admissionChoice == 1)
     {
         printf("Enter ward ID (1-4): ");
-        scanf("%d", &patientWardID[numberOfPatients]);
+        scanf("%d", &wardIDChoice);
+        int bed = chooseBedFromWard(wardIDChoice);
+        if(bed == -1)
+        {
+            printf("Sorry. No beds available in %s.\n",wardName[wardIDChoice-1]);
+            printf("Enter any key to go to main menu..");
+            getchar();
+            getchar();
+            getchar();
+            return;
+        }else
+        {
+            patientWardID[numberOfPatients] = wardIDChoice;
+            patientBedNumber[numberOfPatients] = bed;
+        }
 
         printf("Enter days admitted: ");
         scanf("%d", &patientDaysAdmitted[numberOfPatients]);
@@ -94,8 +129,25 @@ void registerPatient()
         patientBedNumber[numberOfPatients] = 0;
         patientDaysAdmitted[numberOfPatients] = 0;
     }
-
+    patientSpecialtyID[numberOfPatients] = specialtyIDChoice-1;
     numberOfPatients++;
+    dailyPatientRegisteredCount[specialtyIDChoice-1]++;
 
     printf("\nPatient registation successful.\n");
+
+}
+
+
+int chooseBedFromWard(int wardIDChoice)
+{
+    for(int i =0 ;i<bedCapacity[wardIDChoice-1];i++)
+    {
+        if(bedAvailabilityStatus[wardIDChoice-1][i]==0)
+        {
+            return i;
+        }
+    }
+
+    return -1;
+
 }
