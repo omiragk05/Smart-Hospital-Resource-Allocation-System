@@ -45,6 +45,8 @@ int dailyPatientRegisteredCount[NUM_OF_SPECIALTIES] = {0};
 int numOfPatientsInQueue[NUM_OF_SPECIALTIES] = {0};
 int numberOfPatients = 0;
 
+int patientDisplayOrder[MAX_PATIENTS];
+
 //function prototype
 
 int chooseBedFromWard(int wardIDChoice);
@@ -56,8 +58,10 @@ double calculateWardCost(int wardIDChoice,int daysAdmitted);
 double calculateGrossTotal(double baseConsultationFee, double emergencySurcharge,double wardCost);
 double calculateDiscount(int age,double grossTotal);
 double calculateFinalPayable(double grossTotal,double discount);
-void displayPatientBill(int patientIndex);
 
+void displayPatientBill(int patientIndex);
+void sortPatientsIndexesByPriority();
+void displayRegisteredPatientsByPriority();
 
 void displayMainMenu()
 {
@@ -261,7 +265,7 @@ void displayPatientBill(int patientIndex)
     printf("Age                 : %d\n", patientAge[patientIndex]);
     printf("Specialty           : %s\n", specialtyName[patientSpecialtyID[patientIndex]]);
     printf("Urgency Level       : %d\n", patientUrgencyLevel[patientIndex]);
-    printf("Waiting Time        : %.0f minutes\n",patientWaitingTime[patientIndex]);
+    printf("Waiting Time        : %.0lf minutes\n",patientWaitingTime[patientIndex]);
 
     if(patientWardID[patientIndex] == 0)
     {
@@ -279,8 +283,44 @@ void displayPatientBill(int patientIndex)
     printf("Ward Cost           : Rs. %.2f\n",patientWardCost[patientIndex]);
     printf("Gross Total         : Rs. %.2f\n",patientGrossTotal[patientIndex]);
     printf("Discount            : Rs. %.2f\n",patientDiscount[patientIndex]);
-    printf("===============================================\n");
+    printf("-----------------------------------------------\n");
     printf("Final Payable       : Rs. %.2f\n",patientFinalPayable[patientIndex]);
     printf("===============================================\n");
+}
+
+void sortPatientsIndexesByPriority()
+{
+    for(int i= 0; i<numberOfPatients;i++)
+    {
+        patientDisplayOrder[i] = i;
+    }
+    for(int i=0;i<numberOfPatients-1;i++)
+    {
+         for(int j=0;j<numberOfPatients-i-1;j++)
+         {
+            if(patientUrgencyLevel[patientDisplayOrder[j]] <
+               patientUrgencyLevel[patientDisplayOrder[j+1]])
+            {
+                int temp = patientDisplayOrder[j];
+                patientDisplayOrder[j] = patientDisplayOrder[j+1];
+                patientDisplayOrder[j+1] = temp;
+            }
+         }
+    }
+}
+
+void displayRegisteredPatientsByPriority()
+{
+    sortPatientsIndexesByPriority();
+
+    printf("\n====================================================\n");
+    printf("       REGISTERED PATIENTS(Priority Order)\n");
+    printf("=====================================================\n");
+
+    for(int i = 0; i<numberOfPatients; i++)
+    {
+        displayPatientBill(patientDisplayOrder[i]);
+    }
+    printf("\n====================================================\n");
 }
 

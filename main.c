@@ -2,6 +2,8 @@
 
 void displayMainMenu();
 void registerPatient();
+void displayRegisteredPatientsByPriority();
+
 
 int main()
 {
@@ -18,6 +20,7 @@ int main()
                 registerPatient();
                 break;
             case 2:
+                displayRegisteredPatientsByPriority();
                 //display function, Bed Occupancy        by sorting , by search
                 break;
             case 3:
