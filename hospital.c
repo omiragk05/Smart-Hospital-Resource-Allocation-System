@@ -296,10 +296,12 @@ void displayPatientBill(int patientIndex)
     printf("\n===============================================\n");
     printf("Patient ID          : PAT-%04d\n", patientIndex+1);
     printf("Patient Name        : %s\n", patientName[patientIndex]);
-    printf("Age                 : %d\n", patientAge[patientIndex]);
+    printf("Age                 : %d Years %s", patientAge[patientIndex],
+           patientAge[patientIndex]<5||patientAge[patientIndex]>65?"(15% Subsidy Eligible)\n":"\n");
     printf("Specialty           : %s\n", specialtyName[patientSpecialtyID[patientIndex]]);
-    printf("Urgency Level       : %d\n", patientUrgencyLevel[patientIndex]);
-    printf("Waiting Time        : %.0lf minutes\n",patientWaitingTime[patientIndex]);
+    printf("Urgency Level       : %d (%s)\n", patientUrgencyLevel[patientIndex],
+           patientUrgencyLevel[patientIndex]==1?"Normal":patientUrgencyLevel[patientIndex]==2?"Urgent":"Critical");
+    printf("Waiting Time        : %.2lf minutes\n",patientWaitingTime[patientIndex]);
 
     if(patientWardID[patientIndex] == 0)
     {
@@ -308,17 +310,18 @@ void displayPatientBill(int patientIndex)
     else
     {
         printf("Ward                : %s\n",wardName[patientWardID[patientIndex] - 1]);
-        printf("Bed Number          : %d\n",patientBedNumber[patientIndex] + 1);
-        printf("Days Admitted       : %d\n",patientDaysAdmitted[patientIndex]);
+        printf("Bed Number          : Bed#%d\n",patientBedNumber[patientIndex] + 1);
+        printf("Days Admitted       : %d Days\n",patientDaysAdmitted[patientIndex]);
     }
     printf("-----------------------------------------------\n");
-    printf("Base Consultation   : Rs. %.2f\n",patientBaseConsultationFee[patientIndex]);
-    printf("Emergency Surcharge : Rs. %.2f\n",patientEmergencySurcharge[patientIndex]);
-    printf("Ward Cost           : Rs. %.2f\n",patientWardCost[patientIndex]);
-    printf("Gross Total         : Rs. %.2f\n",patientGrossTotal[patientIndex]);
-    printf("Discount            : Rs. %.2f\n",patientDiscount[patientIndex]);
+    printf("Base Consultation   : Rs. %10.2lf\n",patientBaseConsultationFee[patientIndex]);
+    printf("Emergency Surcharge : Rs. %10.2lf\n",patientEmergencySurcharge[patientIndex]);
+    printf("Ward Cost           : Rs. %10.2lf\n",patientWardCost[patientIndex]);
+    printf("Gross Total         : Rs. %10.2lf\n",patientGrossTotal[patientIndex]);
+    printf("Discount            : Rs. -%9.2lf %s",patientDiscount[patientIndex] ,
+           patientDiscount[patientIndex]>0.0?"(15%%)\n":"\n");
     printf("-----------------------------------------------\n");
-    printf("Final Payable       : Rs. %.2f\n",patientFinalPayable[patientIndex]);
+    printf("Final Payable       : Rs. %10.2lf\n",patientFinalPayable[patientIndex]);
     printf("===============================================\n");
 }
 
