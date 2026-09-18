@@ -69,6 +69,9 @@ int findTheIndexOfHighestPayingPatient();
 void displayHighestPayingPatient();
 void displayPatientRegistrationSummary();
 int getPatientCountPerUrgencyLevel(int urgency);
+void displayTotalRevenueAndDiscountAmounts();
+
+
 
 void displayMainMenu()
 {
@@ -380,6 +383,7 @@ void performanceReportsSubMenu()
                 displayPatientRegistrationSummary();
                 break;
             case 2:
+                displayTotalRevenueAndDiscountAmounts();
                 break;
             case 3:
                 break;
@@ -456,3 +460,24 @@ void displayPatientRegistrationSummary()
     getchar();
 }
 
+void displayTotalRevenueAndDiscountAmounts()
+{
+    double totalRevenue = 0.0;
+    double totalDiscount = 0.0;
+
+    for(int i =0;i<numberOfPatients;i++)
+    {
+        totalDiscount+=patientDiscount[i];
+        totalRevenue+=patientFinalPayable[i];
+    }
+
+    printf("\n====================================================\n");
+    printf("      Revenue and Discount Summary\n");
+    printf("====================================================\n");
+    printf("Total Revenue         : %.2lf\n",totalRevenue);
+    printf("Total Discounts Given : %.2lf\n",totalDiscount);
+    printf("====================================================\n");
+    printf("Enter any key to go back..");
+    getchar();
+    getchar();
+}
