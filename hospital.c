@@ -1,5 +1,6 @@
 #include <stdio.h>
 #include <string.h>
+#include <stdlib.h>
 
 #define MAX_PATIENTS 100
 #define NUM_OF_SPECIALTIES 4
@@ -102,8 +103,13 @@ void registerPatient()
 
     printf("Enter patient age: ");
     scanf("%d", &patientAge[numberOfPatients]);
+    printf("\n");
 
-    printf("Enter specialty ID (1-4): ");
+    for(int i=0;i<NUM_OF_SPECIALTIES;i++)
+    {
+        printf("%-25s : %d\n", specialtyName[i],specialtyID[i]);
+    }
+    printf("\nEnter specialty ID (1-4): ");
     scanf("%d", &specialtyIDChoice);
 
     if(dailyPatientRegisteredCount[specialtyIDChoice-1]>=dailyPatientCap[specialtyIDChoice-1])
@@ -115,14 +121,15 @@ void registerPatient()
         return;
     }
 
-    printf("Enter urgency level (1 = Normal, 2 = Urgent, 3 = Critical): ");
+    printf("\n1 = Normal\n2 = Urgent\n3 = Critical\n\n");
+    printf("Enter urgency level : ");
     scanf("%d", &urgencyLevel);
 
 
 
-    printf("Admitted to ward? (1 = Yes, 0 = No): ");
+    printf("\nAdmitted to ward? (1 = Yes, 0 = No): ");
     scanf("%d", &admissionChoice);
-
+    printf("\n");
     if(admissionChoice == 1)
     {
         printf("Enter ward ID (1-4): ");
@@ -130,7 +137,7 @@ void registerPatient()
         int bed = chooseBedFromWard(wardIDChoice);
         if(bed == -1)
         {
-            printf("Sorry. No beds available in %s.\n",wardName[wardIDChoice-1]);
+            printf("\nSorry.Currently No beds available in %s.\n",wardName[wardIDChoice-1]);
             printf("Enter any key to go to main menu..");
             getchar();
             getchar();
@@ -143,7 +150,7 @@ void registerPatient()
             patientBedNumber[numberOfPatients] = bed;
         }
 
-        printf("Enter days admitted: ");
+        printf("\nEnter days admitted: ");
         scanf("%d", &patientDaysAdmitted[numberOfPatients]);
     }
     else
@@ -173,6 +180,7 @@ void registerPatient()
     patientFinalPayable[numberOfPatients] =calculateFinalPayable(patientGrossTotal[numberOfPatients],
                                                     patientDiscount[numberOfPatients]);
 
+    clearScreen();
     printf("\nPatient registation successful.\n");
     displayPatientBill(numberOfPatients);
     numOfPatientsInQueue[specialtyIDChoice - 1]++;
@@ -180,6 +188,10 @@ void registerPatient()
     numberOfPatients++;
 
     refreshWaitingTimesOfOtherPatients(specialtyIDChoice);
+    printf("Enter any key to go back..");
+    getchar();
+    getchar();
+    clearScreen();
 }
 
 
