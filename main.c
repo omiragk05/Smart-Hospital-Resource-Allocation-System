@@ -4,6 +4,7 @@ void displayMainMenu();
 void registerPatient();
 void displayRegisteredPatientsByPriority();
 void performanceReportsSubMenu();
+void displayBedAvailability();
 void clearScreen();
 
 int main()
@@ -28,13 +29,17 @@ int main()
                 break;
             case 3:
                 clearScreen();
+                displayBedAvailability();
+                break;
+            case 4:
+                clearScreen();
                 performanceReportsSubMenu();
                 //Reports function
                 break;
-            case 4:
+            case 5:
                 //Save data
                 break;
-            case 5:
+            case 6:
                 clearScreen();
                 printf("\n\nExited the program\n\n");
                 break;
@@ -43,7 +48,7 @@ int main()
                 printf("\nWring Input. please input a number between 1-5\n");
                 break;
         }
-    }while(choice!=5);
+    }while(choice!=6);
 
 
 

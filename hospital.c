@@ -82,9 +82,10 @@ void displayMainMenu()
     printf("====================================================\n");
     printf("1. Register Patient\n");
     printf("2. Display Registered Patients\n");
-    printf("3. Generate Reports\n");
-    printf("4. Save Data\n");
-    printf("5. Exit\n");
+    printf("3. Display Bed Availability\n");
+    printf("4. Generate Reports\n");
+    printf("5. Save Data\n");
+    printf("6. Exit\n");
     printf("====================================================\n");
 }
 
@@ -609,6 +610,30 @@ void displayWardBedOccupancyReport()
         printf("%.2lf %% Beds Occupied in %s\n",calculateBedOccupancyPercentage(wardID[i]),wardName[i]);
     }
     printf("====================================================\n");
+    printf("\nEnter any key to go back..");
+    getchar();
+    getchar();
+    clearScreen();
+}
+
+void displayBedAvailability()
+{
+    printf("\n====================================================\n");
+    printf("              BED AVAILABILITY\n");
+    printf("====================================================\n");
+
+    for(int i=0;i<NUM_OF_WARDS;i++)
+    {
+        printf("\nWard %d: %s\n", wardID[i], wardName[i]);
+        printf("--------------------------------------------\n");
+        for(int j=0;j<bedCapacity[i];j++)
+        {
+            printf("Bed #%02d : %s\n",j+1,bedAvailabilityStatus[i][j]==0?"Available":"Occupied");
+        }
+    }
+
+    printf("\n====================================================\n");
+
     printf("\nEnter any key to go back..");
     getchar();
     getchar();
