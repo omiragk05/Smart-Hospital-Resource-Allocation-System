@@ -94,23 +94,47 @@ void registerPatient()
     int specialtyIDChoice;
     int wardIDChoice;
     int urgencyLevel;
+    int age;
+    int days;
     printf("===============================\n");
     printf("      PATIENT REGISTRATION\n");
     printf("===============================\n");
 
+    if(numberOfPatients>= MAX_PATIENTS)
+    {
+        printf("Maximum patient capacity reached.\n");
+        return;
+    }
     printf("Enter patient name: ");
-    scanf(" %[^\n]", patientName[numberOfPatients]);
+    scanf(" %49[^\n]", patientName[numberOfPatients]);
 
-    printf("Enter patient age: ");
-    scanf("%d", &patientAge[numberOfPatients]);
+    do
+    {
+        printf("Enter patient age: ");
+        scanf("%d", &age);
+        if(age<0)
+        {
+            printf("Invalid age.\n");
+        }
+    }while(age<0);
+
+    patientAge[numberOfPatients]=age;
     printf("\n");
 
     for(int i=0;i<NUM_OF_SPECIALTIES;i++)
     {
         printf("%-25s : %d\n", specialtyName[i],specialtyID[i]);
     }
-    printf("\nEnter specialty ID (1-4): ");
-    scanf("%d", &specialtyIDChoice);
+    do
+    {
+        printf("\nEnter specialty ID (1-4): ");
+        scanf("%d", &specialtyIDChoice);
+
+        if(specialtyIDChoice<1||specialtyIDChoice>4)
+        {
+            printf("Invalid Specialty Input...\n");
+        }
+    }while(specialtyIDChoice<1||specialtyIDChoice>4);
 
     if(dailyPatientRegisteredCount[specialtyIDChoice-1]>=dailyPatientCap[specialtyIDChoice-1])
     {
@@ -122,18 +146,44 @@ void registerPatient()
     }
 
     printf("\n1 = Normal\n2 = Urgent\n3 = Critical\n\n");
-    printf("Enter urgency level : ");
-    scanf("%d", &urgencyLevel);
 
+    do
+    {
+        printf("Enter urgency level : ");
+        scanf("%d", &urgencyLevel);
 
+        if(urgencyLevel<1||urgencyLevel>3)
+        {
+            printf("invalid Urgency Level...\n\n");
+        }
+    }while(urgencyLevel<1||urgencyLevel>3);
 
-    printf("\nAdmitted to ward? (1 = Yes, 0 = No): ");
-    scanf("%d", &admissionChoice);
+    do
+    {
+        printf("\nAdmitted to ward? (1 = Yes, 0 = No): ");
+        scanf("%d", &admissionChoice);
+
+        if(admissionChoice!= 0 && admissionChoice!= 1)
+        {
+            printf("Invalid input... Please enter 1 or 0.\n");
+        }
+    }while(admissionChoice != 0 && admissionChoice != 1);
+
     printf("\n");
     if(admissionChoice == 1)
     {
-        printf("Enter ward ID (1-4): ");
-        scanf("%d", &wardIDChoice);
+        do
+        {
+            printf("Enter ward ID (1-4): ");
+            scanf("%d", &wardIDChoice);
+
+            if(wardIDChoice< 1||wardIDChoice> 4)
+            {
+                printf("Invalid ward ID...\n");
+            }
+
+        }while(wardIDChoice< 1||wardIDChoice> 4);
+
         int bed = chooseBedFromWard(wardIDChoice);
         if(bed == -1)
         {
@@ -150,8 +200,17 @@ void registerPatient()
             patientBedNumber[numberOfPatients] = bed;
         }
 
-        printf("\nEnter days admitted: ");
-        scanf("%d", &patientDaysAdmitted[numberOfPatients]);
+        do
+        {
+            printf("\nEnter days admitted: ");
+            scanf("%d", &days);
+            if(days<= 0)
+            {
+                printf("Invalid number of days.\n");
+            }
+
+        }while(days<= 0);
+        patientDaysAdmitted[numberOfPatients]=days;
     }
     else
     {
