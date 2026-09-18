@@ -403,31 +403,34 @@ void performanceReportsSubMenu()
     do
     {
         displayPerformanceReportsSubMenu();
-        printf("Input an option :");
+        printf("Input an option : ");
         scanf("%d",&option);
         switch(option)
         {
             case 1:
+                clearScreen();
                 displayPatientRegistrationSummary();
                 break;
             case 2:
+                clearScreen();
                 displayTotalRevenueAndDiscountAmounts();
                 break;
             case 3:
+                clearScreen();
                 displayWardBedOccupancyReport();
                 break;
             case 4:
+                clearScreen();
                 displayHighestPayingPatient();
                 break;
             case 5:
+                clearScreen();
                 break;
             default:
+                clearScreen();
                 printf("Wrong option. Enter again. \n\n");
 
         }
-
-
-
     }while(option!=5);
 }
 
@@ -446,17 +449,26 @@ int findTheIndexOfHighestPayingPatient()
 
 void displayHighestPayingPatient()
 {
-    int index=findTheIndexOfHighestPayingPatient();
-    printf("\n====================================================\n");
-    printf("      Highest Paying Patient\n");
-    printf("====================================================\n");
-    printf("Name : %s\n",patientName[index]);
-    printf("Age  : %d\n",patientAge[index]);
-    printf("Bill Amount : %.2lf\n",patientFinalPayable[index]);
-    printf("====================================================\n");
-    printf("Enter any key to go back..");
+    if(numberOfPatients==0)
+    {
+        printf("\nCurrently no patients are registered. \n");
+    }
+    else
+    {
+        int index=findTheIndexOfHighestPayingPatient();
+        printf("\n====================================================\n");
+        printf("      Highest Paying Patient\n");
+        printf("====================================================\n");
+        printf("Name : %s\n",patientName[index]);
+        printf("Age  : %d\n",patientAge[index]);
+        printf("Bill Amount : %.2lf\n",patientFinalPayable[index]);
+        printf("====================================================\n");
+    }
+
+    printf("\nEnter any key to go back..");
     getchar();
     getchar();
+    clearScreen();
 }
 
 int getPatientCountPerUrgencyLevel(int urgency)
@@ -484,9 +496,10 @@ void displayPatientRegistrationSummary()
     printf("----------------------------------------------------\n");
     printf("Total Registerd Patient Count  : %d\n",numberOfPatients);
     printf("====================================================\n");
-    printf("Enter any key to go back..");
+    printf("\nEnter any key to go back..");
     getchar();
     getchar();
+    clearScreen();
 }
 
 void displayTotalRevenueAndDiscountAmounts()
@@ -506,9 +519,10 @@ void displayTotalRevenueAndDiscountAmounts()
     printf("Total Revenue         : %.2lf\n",totalRevenue);
     printf("Total Discounts Given : %.2lf\n",totalDiscount);
     printf("====================================================\n");
-    printf("Enter any key to go back..");
+    printf("\nEnter any key to go back..");
     getchar();
     getchar();
+    clearScreen();
 }
 
 double calculateBedOccupancyPercentage(int wardIDChoice)
@@ -536,9 +550,10 @@ void displayWardBedOccupancyReport()
         printf("%.2lf %% Beds Occupied in %s\n",calculateBedOccupancyPercentage(wardID[i]),wardName[i]);
     }
     printf("====================================================\n");
-    printf("Enter any key to go back..");
+    printf("\nEnter any key to go back..");
     getchar();
     getchar();
+    clearScreen();
 }
 
 void clearScreen()
