@@ -67,6 +67,8 @@ void displayPerformanceReportsSubMenu();
 
 int findTheIndexOfHighestPayingPatient();
 void displayHighestPayingPatient();
+void displayPatientRegistrationSummary();
+int getPatientCountPerUrgencyLevel(int urgency);
 
 void displayMainMenu()
 {
@@ -375,6 +377,7 @@ void performanceReportsSubMenu()
         switch(option)
         {
             case 1:
+                displayPatientRegistrationSummary();
                 break;
             case 2:
                 break;
@@ -422,3 +425,34 @@ void displayHighestPayingPatient()
     getchar();
     getchar();
 }
+
+int getPatientCountPerUrgencyLevel(int urgency)
+{
+    int count=0;
+    for(int i=0;i<numberOfPatients;i++)
+    {
+        if(patientUrgencyLevel[i]==urgency)
+        {
+            count++;
+        }
+
+    }
+    return count;
+}
+
+void displayPatientRegistrationSummary()
+{
+    printf("\n====================================================\n");
+    printf("      Patient Registration Summary\n");
+    printf("====================================================\n");
+    printf("Level 1 Normal Patient Count   : %d\n",getPatientCountPerUrgencyLevel(1));
+    printf("Level 2 Urgent Patient Count   : %d\n",getPatientCountPerUrgencyLevel(2));
+    printf("Level 3 Critical Patient Count : %d\n",getPatientCountPerUrgencyLevel(3));
+    printf("----------------------------------------------------\n");
+    printf("Total Registerd Patient Count  : %d\n",numberOfPatients);
+    printf("====================================================\n");
+    printf("Enter any key to go back..");
+    getchar();
+    getchar();
+}
+
