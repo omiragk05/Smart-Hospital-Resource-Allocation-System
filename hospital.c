@@ -348,16 +348,28 @@ void sortPatientsIndexesByPriority()
 
 void displayRegisteredPatientsByPriority()
 {
-    sortPatientsIndexesByPriority();
-    printf("\n====================================================\n");
-    printf("       REGISTERED PATIENTS(Priority Order)\n");
-    printf("====================================================\n");
-
-    for(int i=0;i<numberOfPatients; i++)
+    if(numberOfPatients<1)
     {
-        displayPatientBill(patientDisplayOrder[i]);
+        printf("\nNo Patients are available to display. \n");
     }
-    printf("\n====================================================\n");
+    else
+    {
+        sortPatientsIndexesByPriority();
+        printf("\n====================================================\n");
+        printf("       REGISTERED PATIENTS(Priority Order)\n");
+        printf("====================================================\n");
+
+        for(int i=0;i<numberOfPatients; i++)
+        {
+            displayPatientBill(patientDisplayOrder[i]);
+        }
+        printf("\n====================================================\n");
+    }
+
+    printf("\nEnter any key to go back..");
+    getchar();
+    getchar();
+    clearScreen();
 }
 
 
