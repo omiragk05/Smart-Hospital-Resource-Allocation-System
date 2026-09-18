@@ -70,7 +70,8 @@ void displayHighestPayingPatient();
 void displayPatientRegistrationSummary();
 int getPatientCountPerUrgencyLevel(int urgency);
 void displayTotalRevenueAndDiscountAmounts();
-
+double calculateBedOccupancyPercentage(int wardIDChoice);
+void displayWardBedOccupancyReport();
 
 
 void displayMainMenu()
@@ -386,6 +387,7 @@ void performanceReportsSubMenu()
                 displayTotalRevenueAndDiscountAmounts();
                 break;
             case 3:
+                displayWardBedOccupancyReport();
                 break;
             case 4:
                 displayHighestPayingPatient();
@@ -423,7 +425,7 @@ void displayHighestPayingPatient()
     printf("====================================================\n");
     printf("Name : %s\n",patientName[index]);
     printf("Age  : %d\n",patientAge[index]);
-    printf("Bill Amount : %lf\n",patientFinalPayable[index]);
+    printf("Bill Amount : %.2lf\n",patientFinalPayable[index]);
     printf("====================================================\n");
     printf("Enter any key to go back..");
     getchar();
@@ -476,6 +478,36 @@ void displayTotalRevenueAndDiscountAmounts()
     printf("====================================================\n");
     printf("Total Revenue         : %.2lf\n",totalRevenue);
     printf("Total Discounts Given : %.2lf\n",totalDiscount);
+    printf("====================================================\n");
+    printf("Enter any key to go back..");
+    getchar();
+    getchar();
+}
+
+double calculateBedOccupancyPercentage(int wardIDChoice)
+{
+    double percentage=0.0;
+    int OccupiedBedCount = 0;
+
+    for(int i=0;i<bedCapacity[wardIDChoice-1];i++)
+    {
+        if(bedAvailabilityStatus[wardIDChoice-1][i]==1)
+        {
+            OccupiedBedCount++;
+        }
+    }
+    percentage = OccupiedBedCount*1.0 / bedCapacity[wardIDChoice-1] *100;
+    return percentage;
+}
+void displayWardBedOccupancyReport()
+{
+    printf("\n====================================================\n");
+    printf("      Ward Bed Occupancy Report\n");
+    printf("====================================================\n");
+    for(int i=0;i<NUM_OF_WARDS;i++)
+    {
+        printf("%.2lf %% Beds Occupied in %s\n",calculateBedOccupancyPercentage(wardID[i]),wardName[i]);
+    }
     printf("====================================================\n");
     printf("Enter any key to go back..");
     getchar();
