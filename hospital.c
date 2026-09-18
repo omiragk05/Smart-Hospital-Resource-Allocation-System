@@ -64,7 +64,7 @@ void sortPatientsIndexesByPriority();
 void displayRegisteredPatientsByPriority();
 void refreshWaitingTimesOfOtherPatients(int specialtyIDChoice);
 void displayPerformanceReportsSubMenu();
-
+void clearScreen();
 int findTheIndexOfHighestPayingPatient();
 void displayHighestPayingPatient();
 void displayPatientRegistrationSummary();
@@ -421,7 +421,7 @@ void displayHighestPayingPatient()
 {
     int index=findTheIndexOfHighestPayingPatient();
     printf("\n====================================================\n");
-    printf("      Highest Paying Customer\n");
+    printf("      Highest Paying Patient\n");
     printf("====================================================\n");
     printf("Name : %s\n",patientName[index]);
     printf("Age  : %d\n",patientAge[index]);
@@ -512,4 +512,9 @@ void displayWardBedOccupancyReport()
     printf("Enter any key to go back..");
     getchar();
     getchar();
+}
+
+void clearScreen()
+{
+    system("cls");
 }
