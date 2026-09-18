@@ -3,6 +3,7 @@
 void displayMainMenu();
 void registerPatient();
 void displayRegisteredPatientsByPriority();
+void performanceReportsSubMenu();
 
 
 int main()
@@ -24,6 +25,7 @@ int main()
                 //display function, Bed Occupancy        by sorting , by search
                 break;
             case 3:
+                performanceReportsSubMenu();
                 //Reports function
                 break;
             case 4:

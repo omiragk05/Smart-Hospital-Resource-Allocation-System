@@ -63,7 +63,10 @@ void displayPatientBill(int patientIndex);
 void sortPatientsIndexesByPriority();
 void displayRegisteredPatientsByPriority();
 void refreshWaitingTimesOfOtherPatients(int specialtyIDChoice);
+void displayPerformanceReportsSubMenu();
 
+int findTheIndexOfHighestPayingPatient();
+void displayHighestPayingPatient();
 
 void displayMainMenu()
 {
@@ -349,4 +352,73 @@ void refreshWaitingTimesOfOtherPatients(int specialtyIDChoice)
 
 }
 
+void displayPerformanceReportsSubMenu()
+{
+    printf("====================================================\n");
+    printf("      PERFORMANCE REPORTS\n");
+    printf("====================================================\n");
+    printf("1. Patient Registration Summary\n");
+    printf("2. Revenue and Discount Summary\n");
+    printf("3. Ward Bed Occupancy Report\n");
+    printf("4. Highest-Paying Patient\n");
+    printf("5. Back to Main Menu\n");
+    printf("====================================================\n");
+}
+void performanceReportsSubMenu()
+{
+    int option;
+    do
+    {
+        displayPerformanceReportsSubMenu();
+        printf("Input an option :");
+        scanf("%d",&option);
+        switch(option)
+        {
+            case 1:
+                break;
+            case 2:
+                break;
+            case 3:
+                break;
+            case 4:
+                displayHighestPayingPatient();
+                break;
+            case 5:
+                break;
+            default:
+                printf("Wrong option. Enter again. \n\n");
 
+        }
+
+
+
+    }while(option!=5);
+}
+
+int findTheIndexOfHighestPayingPatient()
+{
+    int index=0;
+    for(int i=1;i<numberOfPatients;i++)
+    {
+        if(patientFinalPayable[index]<patientFinalPayable[i])
+        {
+            index=i;
+        }
+    }
+    return index;
+}
+
+void displayHighestPayingPatient()
+{
+    int index=findTheIndexOfHighestPayingPatient();
+    printf("\n====================================================\n");
+    printf("      Highest Paying Customer\n");
+    printf("====================================================\n");
+    printf("Name : %s\n",patientName[index]);
+    printf("Age  : %d\n",patientAge[index]);
+    printf("Bill Amount : %lf\n",patientFinalPayable[index]);
+    printf("====================================================\n");
+    printf("Enter any key to go back..");
+    getchar();
+    getchar();
+}
