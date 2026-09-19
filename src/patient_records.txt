@@ -1,0 +1,2 @@
+Patient ID,Name,Age,Specialty,Urgency,Ward,Bed,Days,Waiting Time,Base Fee,Emergency Surcharge,Ward Cost,Gross Total,Discount,Final Payable 
+

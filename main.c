@@ -40,6 +40,11 @@ int main()
             case 5:
                 clearScreen();
                 saveBedOccupancyStatus();
+                savePatientRecords();
+                printf("\nEnter any key to continue...");
+                getchar();
+                getchar();
+                clearScreen();
                 //Save data
                 break;
             case 6:

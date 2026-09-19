@@ -3,6 +3,7 @@
 
 void saveBedOccupancyStatus();
 void loadBedOccupancyStatus();
+void savePatientRecords();
 
 
 #endif
