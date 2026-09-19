@@ -15,7 +15,13 @@ int main()
     {
         displayMainMenu();
         printf("Input an option : ");
-        scanf("%d",&choice);
+        if(scanf("%d", &choice)!= 1)
+        {
+            printf("Invalid input. Please enter a number.\n");
+            while(getchar()!= '\n'){}
+            choice = -1;
+            continue;
+        }
         switch(choice)
         {
             case 1:
@@ -45,7 +51,7 @@ int main()
                 break;
             default:
                 clearScreen();
-                printf("\nWring Input. please input a number between 1-5\n");
+                printf("\nWring Input. please input a number between 1-6\n");
                 break;
         }
     }while(choice!=6);

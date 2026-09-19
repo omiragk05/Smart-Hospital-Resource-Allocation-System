@@ -109,12 +109,16 @@ void registerPatient()
     printf("Enter patient name: ");
     scanf(" %49[^\n]", patientName[numberOfPatients]);
 
-    do
-    {
+    do{
         printf("Enter patient age: ");
-        scanf("%d", &age);
-        if(age<0)
+        if(scanf("%d", &age)!= 1)
         {
+            printf("Invalid input. Please enter a number.\n");
+            while(getchar()!= '\n'){}
+            age = -1;
+            continue;
+        }
+        if(age<0){
             printf("Invalid age.\n");
         }
     }while(age<0);
@@ -129,7 +133,13 @@ void registerPatient()
     do
     {
         printf("\nEnter specialty ID (1-4): ");
-        scanf("%d", &specialtyIDChoice);
+        if(scanf("%d", &specialtyIDChoice)!= 1)
+        {
+            printf("Invalid input. Please enter a number.\n");
+            while(getchar()!= '\n'){}
+            specialtyIDChoice = -1;
+            continue;
+        }
 
         if(specialtyIDChoice<1||specialtyIDChoice>4)
         {
@@ -151,7 +161,13 @@ void registerPatient()
     do
     {
         printf("Enter urgency level : ");
-        scanf("%d", &urgencyLevel);
+        if(scanf("%d", &urgencyLevel)!= 1)
+        {
+            printf("Invalid input. Please enter a number.\n");
+            while(getchar()!= '\n'){}
+            urgencyLevel = -1;
+            continue;
+        }
 
         if(urgencyLevel<1||urgencyLevel>3)
         {
@@ -162,7 +178,13 @@ void registerPatient()
     do
     {
         printf("\nAdmitted to ward? (1 = Yes, 0 = No): ");
-        scanf("%d", &admissionChoice);
+        if(scanf("%d", &admissionChoice)!= 1)
+        {
+            printf("Invalid input. Please enter 1 or 0.\n");
+            while(getchar()!= '\n'){}
+            admissionChoice = -1;
+            continue;
+        }
 
         if(admissionChoice!= 0 && admissionChoice!= 1)
         {
@@ -176,7 +198,13 @@ void registerPatient()
         do
         {
             printf("Enter ward ID (1-4): ");
-            scanf("%d", &wardIDChoice);
+            if(scanf("%d", &wardIDChoice)!= 1)
+            {
+                printf("Invalid input. Please enter a number.\n");
+                while(getchar()!= '\n'){}
+                wardIDChoice = -1;
+                continue;
+            }
 
             if(wardIDChoice< 1||wardIDChoice> 4)
             {
@@ -204,7 +232,13 @@ void registerPatient()
         do
         {
             printf("\nEnter days admitted: ");
-            scanf("%d", &days);
+            if(scanf("%d", &days)!= 1)
+            {
+                printf("Invalid input. Please enter a number.\n");
+                while(getchar()!= '\n'){}
+                days = -1;
+                continue;
+            }
             if(days<= 0)
             {
                 printf("Invalid number of days.\n");
@@ -464,7 +498,14 @@ void performanceReportsSubMenu()
     {
         displayPerformanceReportsSubMenu();
         printf("Input an option : ");
-        scanf("%d",&option);
+        if(scanf("%d", &option)!= 1)
+        {
+            printf("Invalid input. Please enter a number.\n");
+            while(getchar()!= '\n'){}
+            option = -1;
+            continue;
+        }
+
         switch(option)
         {
             case 1:
@@ -489,7 +530,6 @@ void performanceReportsSubMenu()
             default:
                 clearScreen();
                 printf("Wrong option. Enter again. \n\n");
-
         }
     }while(option!=5);
 }
