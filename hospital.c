@@ -52,7 +52,7 @@ int patientDisplayOrder[MAX_PATIENTS];
 
 int chooseBedFromWard(int wardIDChoice);
 
-double calculateWaitingTime(int patientIndex);
+double calculateWaitingTime(int specialtyIDChoice);
 double calculateBaseConsultationFee(int specialtyIDChoice);
 double calculateEmergencySurcharge(int urgencyLevel,double baseConsultationFee);
 double calculateWardCost(int wardIDChoice,int daysAdmitted);
@@ -63,7 +63,6 @@ double calculateFinalPayable(double grossTotal,double discount);
 void displayPatientBill(int patientIndex);
 void sortPatientsIndexesByPriority();
 void displayRegisteredPatientsByPriority();
-void refreshWaitingTimesOfOtherPatients(int specialtyIDChoice);
 void displayPerformanceReportsSubMenu();
 void clearScreen();
 int findTheIndexOfHighestPayingPatient();
@@ -256,7 +255,7 @@ void registerPatient()
 
     patientSpecialtyID[numberOfPatients] = specialtyIDChoice-1;
     patientUrgencyLevel[numberOfPatients] = urgencyLevel;
-    patientWaitingTime[numberOfPatients] = calculateWaitingTime(numberOfPatients);
+    patientWaitingTime[numberOfPatients] = calculateWaitingTime(specialtyIDChoice);
     patientBaseConsultationFee[numberOfPatients] =calculateBaseConsultationFee(specialtyIDChoice);
 
     patientEmergencySurcharge[numberOfPatients] =calculateEmergencySurcharge(patientUrgencyLevel[numberOfPatients],
@@ -281,7 +280,6 @@ void registerPatient()
     dailyPatientRegisteredCount[specialtyIDChoice - 1]++;
     numberOfPatients++;
 
-    refreshWaitingTimesOfOtherPatients(specialtyIDChoice);
     printf("Enter any key to go back..");
     getchar();
     getchar();
@@ -310,31 +308,10 @@ double calculateBaseConsultationFee(int specialtyIDChoice)
 }
 
 
-double calculateWaitingTime(int patientNumber)
+double calculateWaitingTime(int specialtyIDChoice)
 {
-    int patientsAheadCount = 0;
-
-    for(int i= 0;i<numberOfPatients;i++)
-    {
-        if(i==patientNumber)
-        {
-            continue;
-        }
-        if (patientSpecialtyID[i] == patientSpecialtyID[patientNumber])
-        {
-            if (patientUrgencyLevel[i]>patientUrgencyLevel[patientNumber])
-            {
-                patientsAheadCount++;
-            }
-            else if(patientUrgencyLevel[i]==patientUrgencyLevel[patientNumber]&& i<patientNumber)
-            {
-                patientsAheadCount++;
-            }
-        }
-    }
-    return patientsAheadCount * consultationTime[patientSpecialtyID[patientNumber]];
+    return numOfPatientsInQueue[specialtyIDChoice-1]*consultationTime[specialtyIDChoice-1];
 }
-
 
 double calculateEmergencySurcharge(int urgencyLevel, double baseConsultationFee)
 {
@@ -466,18 +443,6 @@ void displayRegisteredPatientsByPriority()
     clearScreen();
 }
 
-
-void refreshWaitingTimesOfOtherPatients(int specialtyIDChoice)
-{
-    for(int i=0;i<numberOfPatients;i++)
-    {
-        if(patientSpecialtyID[i]==specialtyIDChoice-1)
-        {
-            patientWaitingTime[i]=calculateWaitingTime(i);
-        }
-    }
-
-}
 
 void displayPerformanceReportsSubMenu()
 {
