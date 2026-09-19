@@ -7,6 +7,11 @@ void saveBedOccupancyStatus()
     FILE *file;
 
     file = fopen("src/beds_status.txt", "w");
+    if(file==NULL)
+    {
+        printf("\nCould not save bed occupancy status.\n");
+        return;
+    }
     for(int i=0;i<NUM_OF_WARDS;i++)
     {
         for(int j=0;j<bedCapacity[i];j++)
@@ -24,6 +29,11 @@ void loadBedOccupancyStatus()
 {
     FILE *file;
     file = fopen("src/beds_status.txt", "r");
+    if(file==NULL)
+    {
+        printf("\nCould not load bed occupancy status.\n");
+        return;
+    }
     for(int i=0;i<NUM_OF_WARDS;i++)
     {
         for(int j=0;j<bedCapacity[i];j++)
