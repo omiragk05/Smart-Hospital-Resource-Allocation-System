@@ -1,11 +1,6 @@
 #include <stdio.h>
 
-void displayMainMenu();
-void registerPatient();
-void displayRegisteredPatientsByPriority();
-void performanceReportsSubMenu();
-void displayBedAvailability();
-void clearScreen();
+#include "hospital.h"
 
 int main()
 {

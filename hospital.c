@@ -1,10 +1,7 @@
 #include <stdio.h>
 #include <string.h>
 #include <stdlib.h>
-
-#define MAX_PATIENTS 100
-#define NUM_OF_SPECIALTIES 4
-#define NUM_OF_WARDS 4
+#include "hospital.h"
 
 
 //Doctor Specialties Data
@@ -48,31 +45,6 @@ int numberOfPatients = 0;
 
 int patientDisplayOrder[MAX_PATIENTS];
 
-//function prototype
-
-int chooseBedFromWard(int wardIDChoice);
-
-double calculateWaitingTime(int specialtyIDChoice);
-double calculateBaseConsultationFee(int specialtyIDChoice);
-double calculateEmergencySurcharge(int urgencyLevel,double baseConsultationFee);
-double calculateWardCost(int wardIDChoice,int daysAdmitted);
-double calculateGrossTotal(double baseConsultationFee, double emergencySurcharge,double wardCost);
-double calculateDiscount(int age,double grossTotal);
-double calculateFinalPayable(double grossTotal,double discount);
-
-void displayPatientBill(int patientIndex);
-void sortPatientsIndexesByPriority();
-void displayRegisteredPatientsByPriority();
-void displayPerformanceReportsSubMenu();
-void clearScreen();
-int findTheIndexOfHighestPayingPatient();
-void displayHighestPayingPatient();
-void displayPatientRegistrationSummary();
-int getPatientCountPerUrgencyLevel(int urgency);
-void displayTotalRevenueAndDiscountAmounts();
-double calculateBedOccupancyPercentage(int wardIDChoice);
-void displayWardBedOccupancyReport();
-void displayPatientDetails(int patientIndex,int priorityNumber);
 
 void displayMainMenu()
 {
@@ -192,11 +164,15 @@ void registerPatient()
     }while(admissionChoice != 0 && admissionChoice != 1);
 
     printf("\n");
+    for(int i=0;i<NUM_OF_WARDS;i++)
+    {
+        printf("%-25s : %d\n", wardName[i],wardID[i]);
+    }
     if(admissionChoice == 1)
     {
         do
         {
-            printf("Enter ward ID (1-4): ");
+            printf("\nEnter ward ID (1-4): ");
             if(scanf("%d", &wardIDChoice)!= 1)
             {
                 printf("Invalid input. Please enter a number.\n");
