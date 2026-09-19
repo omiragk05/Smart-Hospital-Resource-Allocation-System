@@ -57,16 +57,14 @@ void savePatientRecords()
 
     for(int i=savedPatientCount;i<numberOfPatients;i++)
     {
-        fprintf(file,"PAT-%04d,%s,%d,%d,%d,%d,%d,%d,%.2lf,%.2lf,%.2lf,%.2lf,%.2lf,%.2lf,%.2lf\n",
-                i + 1,
+        fprintf(file,"%s,%d,%s,%s,%s,%d,%d,%.2lf,%.2lf,%.2lf,%.2lf,%.2lf,%.2lf\n",
                 patientName[i],
                 patientAge[i],
-                patientSpecialtyID[i] + 1,
-                patientUrgencyLevel[i],
-                patientWardID[i],
-                patientBedNumber[i] + 1,
+                specialtyName[patientSpecialtyID[i]],
+                patientUrgencyLevel[i]==1?"Normal":patientUrgencyLevel[i]==2?"Urgent":"Critical",
+                patientWardID[i]==0?"Not Admitted":wardName[patientWardID[i]-1],
+                patientWardID[i]== 0?0 : patientBedNumber[i]+1,
                 patientDaysAdmitted[i],
-                patientWaitingTime[i],
                 patientBaseConsultationFee[i],
                 patientEmergencySurcharge[i],
                 patientWardCost[i],
