@@ -365,7 +365,7 @@ void displayPatientBill(int patientIndex)
 
     if(patientWardID[patientIndex] == 0)
     {
-        printf("Assigned Ward          : Not Admitted\n");
+        printf("Assigned Ward       : Not Admitted\n");
     }
     else
     {
@@ -516,13 +516,22 @@ void displayHighestPayingPatient()
     else
     {
         int index=findTheIndexOfHighestPayingPatient();
+        double highestPayable=patientFinalPayable[index];
+
         printf("\n====================================================\n");
-        printf("      Highest Paying Patient\n");
+        printf("      Highest Paying Patient(s) List\n");
         printf("====================================================\n");
-        printf("Name : %s\n",patientName[index]);
-        printf("Age  : %d\n",patientAge[index]);
-        printf("Bill Amount : %.2lf\n",patientFinalPayable[index]);
-        printf("====================================================\n");
+        for(int i=0;i<numberOfPatients;i++)
+        {
+            if(patientFinalPayable[i] == highestPayable)
+            {
+                printf("Patient ID   : PAT-%04d\n",i+1);
+                printf("Name         : %s\n",patientName[i]);
+                printf("Age          : %d\n",patientAge[i]);
+                printf("Bill Amount  : %.2lf\n",patientFinalPayable[i]);
+                printf("-----------------------------------------------\n");
+            }
+        }
     }
 
     printf("\nEnter any key to go back..");
