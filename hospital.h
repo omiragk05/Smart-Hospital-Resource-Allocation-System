@@ -80,5 +80,6 @@ void displayWardBedOccupancyReport();
 void displayBedAvailability();
 
 void clearScreen();
+void exitTheProgram();
 
 #endif

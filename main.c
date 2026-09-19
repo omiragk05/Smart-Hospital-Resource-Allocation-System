@@ -1,5 +1,4 @@
 #include <stdio.h>
-
 #include "hospital.h"
 #include "filehandling.h"
 
@@ -49,7 +48,7 @@ int main()
                 break;
             case 6:
                 clearScreen();
-                printf("\n\nExited the program\n\n");
+                exitTheProgram();
                 break;
             default:
                 clearScreen();
@@ -57,8 +56,5 @@ int main()
                 break;
         }
     }while(choice!=6);
-
-
-
     return 0;
 }

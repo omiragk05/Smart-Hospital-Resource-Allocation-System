@@ -2,6 +2,8 @@
 #include <string.h>
 #include <stdlib.h>
 #include "hospital.h"
+#include "filehandling.h"
+
 
 
 //Doctor Specialties Data
@@ -658,4 +660,41 @@ void displayBedAvailability()
 void clearScreen()
 {
     system("cls");
+}
+
+void exitTheProgram()
+{
+    if(numberOfPatients!= savedPatientCount)
+    {
+        printf("\nYou have %d unsaved data.\n\nDo you want to save before exiting? (1 = Yes, 0 = No): ",numberOfPatients-savedPatientCount);
+        int saveChoice;
+        do
+        {
+            if(scanf("%d", &saveChoice)!= 1)
+            {
+                while(getchar()!= '\n'){}
+                saveChoice = -1;
+            }
+            switch(saveChoice)
+            {
+            case 1:
+                clearScreen();
+                saveBedOccupancyStatus();
+                savePatientRecords();
+                printf("\n\nExited the program...\n\n\n");
+                break;
+            case 0:
+                clearScreen();
+                printf("\n\nExited the program without saving...\n\n\n");
+                break;
+            default:
+                printf("\nInvalid choice. Please enter 1 or 0 : ");
+            }
+        }while(saveChoice!= 0 && saveChoice!= 1);
+    }
+    else
+    {
+        printf("\n\nExited the program...\n\n\n");
+    }
+    exit(0);
 }
