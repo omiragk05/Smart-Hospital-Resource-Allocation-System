@@ -72,7 +72,7 @@ int getPatientCountPerUrgencyLevel(int urgency);
 void displayTotalRevenueAndDiscountAmounts();
 double calculateBedOccupancyPercentage(int wardIDChoice);
 void displayWardBedOccupancyReport();
-
+void displayPatientDetails(int patientIndex,int priorityNumber);
 
 void displayMainMenu()
 {
@@ -390,7 +390,7 @@ void displayPatientBill(int patientIndex)
     printf("Ward Cost           : Rs. %10.2lf\n",patientWardCost[patientIndex]);
     printf("Gross Total         : Rs. %10.2lf\n",patientGrossTotal[patientIndex]);
     printf("Discount            : Rs. -%9.2lf %s",patientDiscount[patientIndex] ,
-           patientDiscount[patientIndex]>0.0?"(15%%)\n":"\n");
+           patientDiscount[patientIndex]>0.0?"(15%)\n":"\n");
     printf("-----------------------------------------------\n");
     printf("Final Payable       : Rs. %10.2lf\n",patientFinalPayable[patientIndex]);
     printf("===============================================\n");
@@ -417,6 +417,30 @@ void sortPatientsIndexesByPriority()
     }
 }
 
+void displayPatientDetails(int patientIndex,int priorityNumber)
+{
+    printf("Priority No. #%d\n", priorityNumber);
+    printf("----------------\n");
+    printf("Patient ID          : PAT-%04d\n", patientIndex+1);
+    printf("Patient Name        : %s\n", patientName[patientIndex]);
+    printf("Age                 : %d Years \n", patientAge[patientIndex]);
+    printf("Specialty           : %s\n", specialtyName[patientSpecialtyID[patientIndex]]);
+    printf("Urgency Level       : %d (%s)\n", patientUrgencyLevel[patientIndex],
+           patientUrgencyLevel[patientIndex]==1?"Normal":patientUrgencyLevel[patientIndex]==2?"Urgent":"Critical");
+    if(patientWardID[patientIndex] == 0)
+    {
+        printf("Assigned Ward       : Not Admitted\n");
+    }
+    else
+    {
+        printf("Ward                : %s\n",wardName[patientWardID[patientIndex] - 1]);
+        printf("Bed Number          : Bed#%d\n",patientBedNumber[patientIndex] + 1);
+        printf("Days Admitted       : %d Days\n",patientDaysAdmitted[patientIndex]);
+    }
+    printf("Total Amount        : Rs. %.2lf\n",patientFinalPayable[patientIndex]);
+    printf("\n-----------------------------------------------\n");
+
+}
 void displayRegisteredPatientsByPriority()
 {
     if(numberOfPatients<1)
@@ -428,13 +452,14 @@ void displayRegisteredPatientsByPriority()
         sortPatientsIndexesByPriority();
         printf("\n====================================================\n");
         printf("       REGISTERED PATIENTS(Priority Order)\n");
-        printf("====================================================\n");
+        printf("====================================================\n\n");
 
         for(int i=0;i<numberOfPatients; i++)
         {
-            displayPatientBill(patientDisplayOrder[i]);
+            displayPatientDetails(patientDisplayOrder[i],i+1);
+            printf("\n");
         }
-        printf("\n====================================================\n");
+        printf("====================================================\n");
     }
 
     printf("\nEnter any key to go back..");
