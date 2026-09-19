@@ -45,7 +45,7 @@ void savePatientRecords()
         return;
     }
 
-    for(int i=0;i<numberOfPatients;i++)
+    for(int i=savedPatientCount;i<numberOfPatients;i++)
     {
         fprintf(file,"PAT-%04d,%s,%d,%d,%d,%d,%d,%d,%.2lf,%.2lf,%.2lf,%.2lf,%.2lf,%.2lf,%.2lf\n",
                 i + 1,
@@ -66,5 +66,6 @@ void savePatientRecords()
     }
 
     fclose(file);
+    savedPatientCount=numberOfPatients;
     printf("\nPatient records saved successfully.\n\n");
 }

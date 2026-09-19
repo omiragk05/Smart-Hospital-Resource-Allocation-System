@@ -42,7 +42,7 @@ int dailyPatientRegisteredCount[NUM_OF_SPECIALTIES] = {0};
 
 int numOfPatientsInQueue[NUM_OF_SPECIALTIES] = {0};
 int numberOfPatients = 0;
-
+int savedPatientCount = 0;
 int patientDisplayOrder[MAX_PATIENTS];
 
 

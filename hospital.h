@@ -41,7 +41,7 @@ extern double patientFinalPayable[MAX_PATIENTS];
 extern int dailyPatientRegisteredCount[NUM_OF_SPECIALTIES];
 extern int numOfPatientsInQueue[NUM_OF_SPECIALTIES];
 extern int numberOfPatients;
-
+extern int savedPatientCount;
 extern int patientDisplayOrder[MAX_PATIENTS];
 
 /* function prototypes */
