@@ -44,7 +44,7 @@ extern int numberOfPatients;
 
 extern int patientDisplayOrder[MAX_PATIENTS];
 
-/* Functions */
+/* function prototypes */
 int chooseBedFromWard(int wardIDChoice);
 
 double calculateWaitingTime(int specialtyIDChoice);

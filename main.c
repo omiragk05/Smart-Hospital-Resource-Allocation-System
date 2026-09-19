@@ -1,10 +1,11 @@
 #include <stdio.h>
 
 #include "hospital.h"
+#include "filehandling.h"
 
 int main()
 {
-
+    loadBedOccupancyStatus();
     int choice;
     do
     {
@@ -26,7 +27,6 @@ int main()
             case 2:
                 clearScreen();
                 displayRegisteredPatientsByPriority();
-                //display function, Bed Occupancy        by sorting , by search
                 break;
             case 3:
                 clearScreen();
@@ -38,6 +38,8 @@ int main()
                 //Reports function
                 break;
             case 5:
+                clearScreen();
+                saveBedOccupancyStatus();
                 //Save data
                 break;
             case 6:
