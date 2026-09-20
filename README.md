@@ -99,7 +99,31 @@ The user can:
 - Exit without saving
 
   
-# 📷 Program Preview
+## 📷 Program Preview
+
+### 🏠 Main Menu & Navigation
+
+<table> <tr> <td><img src="https://github.com/user-attachments/assets/df80b604-821d-45dc-a05c-da074502a229" width="100%"></td> <td><img src="https://github.com/user-attachments/assets/277dc326-2cfb-4091-b37e-3a48a9725c89" width="100%"></td> </tr> <tr> <td align="center"><b>Main Menu</b></td> <td align="center"><b>Reports Sub Menu</b></td> </tr> </table>
+
+### 👤 Patient Registration
+
+<table> <tr> <td><img src="https://github.com/user-attachments/assets/26e8bddb-cd25-40a5-87bf-f7593f87b1b6" width="100%"></td> <td><img src="https://github.com/user-attachments/assets/f536bdbe-024d-403a-bea5-05ea3a395d65" width="100%"></td> </tr> <tr> <td align="center"><b>Patient Registration Form</b></td> <td align="center"><b>Registration Form</b></td> </tr> </table>
+
+### 💳 Patient Billing
+
+<table> <tr> <td><img src="https://github.com/user-attachments/assets/93e0b744-c34c-409b-97e0-085521347ca4" width="100%"></td> <td><img src="https://github.com/user-attachments/assets/2598bbb0-2e02-4104-9b80-87b6130da832" width="100%"></td> </tr> <tr> <td align="center"><b>Patient Bill - Admission</b></td> <td align="center"><b>Patient Bill</b></td> </tr> </table>
+
+### 🛏️ Bed Management
+
+<table> <tr> <td><img src="https://github.com/user-attachments/assets/f7df7b0c-abad-4e65-8e2e-ae1c3e3e28ed" width="100%"></td> <td><img src="https://github.com/user-attachments/assets/12e7a6c0-391b-4b51-a1a0-61daae045296" width="100%"></td> </tr> <tr> <td align="center"><b>Bed Availability Report</b></td> <td align="center"><b>Bed Occupancy</b></td> </tr> </table>
+
+### 📊 Patient Reports
+
+<table> <tr> <td><img src="https://github.com/user-attachments/assets/09b9e323-173e-4f28-93f9-e7a65ea2c65f" width="100%"></td> <td><img src="https://github.com/user-attachments/assets/136a6655-5667-4561-8034-8b99aa024952" width="100%"></td> </tr> <tr> <td align="center"><b>Registration Summary</b></td> <td align="center"><b>Payment & Discount Summary</b></td> </tr> </table>
+
+### 📋 Patient Priority & Reports
+
+<table> <tr> <td><img src="https://github.com/user-attachments/assets/8e9b033a-cc57-40c4-8bd4-9f00d00aa7d0" width="100%"></td> <td><img src="https://github.com/user-attachments/assets/667d1325-29c9-4e23-949f-30171c1dc61c" width="100%"></td> </tr> <tr> <td align="center"><b>Patient Priority Order</b></td> <td align="center"><b>Highest-Paying Patient Report</b></td> </tr> </table>
 
 ## Project Structure
 
